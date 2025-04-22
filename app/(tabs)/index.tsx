@@ -1,68 +1,110 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, ScrollView, FlatList, TextInput, Text, Button } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+
+const liststuff = [
+  {
+    name: "Fluffy",
+    animal: "cat",
+  },
+  {
+    name: "Whiskers",
+    animal: "cat",
+  },
+  {
+    name: "Rex",
+    animal: "dog",
+  },
+  {
+    name: "Bark",
+    animal: "dog",
+  },
+  {
+    name: "Hop",
+    animal: "bunny",
+  },
+  {
+    name: "Easter",
+    animal: "bunny",
+  },
+  {
+    name: "Blub",
+    animal: "fish",
+  },
+  {
+    name: "Swimmy",
+    animal: "fish",
+  },
+  {
+    name: "Meow",
+    animal: "cat",
+  },
+  {
+    name: "Floofy",
+    animal: "cat",
+  },
+  {
+    name: "Woof",
+    animal: "dog",
+  },
+  {
+    name: "Luna",
+    animal: "dog",
+  },
+
+];
+
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
+    
+    <ScrollView style={styles.all}>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText style={styles.title}>Animals</ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
+      <TextInput style={styles.input}
+      />
+      <Button
+        title="Submit"
+      />
+        <FlatList
+          data = {liststuff}
+          keyExtractor = {(item) => item.name}
+          renderItem = {({item}) => (
+            <ThemedView style={styles.stepContainer}>
+              <Text style={styles.item}>{item.name}</Text>
+            </ThemedView>
+          )}
+        />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  all: {
+    backgroundColor: '#000000'
+  },
+  title: {
+    color: 'white',
+    fontSize: 30,
+    paddingTop: 30,
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    paddingTop: 50,
   },
   stepContainer: {
-    gap: 8,
+    gap: 20,
     marginBottom: 8,
+    fontSize: 20,
+    paddingTop: 30,
   },
   reactLogo: {
     height: 178,
@@ -71,4 +113,12 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  item: {
+    fontSize: 20,
+    color:'#ffffff',
+  },
+  input: {
+    backgroundColor: '#ffffff',
+    color: '#000000'
+  }
 });
