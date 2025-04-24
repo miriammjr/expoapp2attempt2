@@ -78,9 +78,11 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
       <TextInput style={styles.input}
+        value={searchStuff}
       />
       <Button
         title="Submit"
+        onPress={({searchStuff} => searchAnimals({seachStuff})}
       />
         <FlatList
           data = {liststuff}
