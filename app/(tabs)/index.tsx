@@ -103,8 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
     display: 'flex',
     flexDirection: 'column',
-    
-    
+    textAlign: 'center',
   },
   title: {
     color: 'white',
