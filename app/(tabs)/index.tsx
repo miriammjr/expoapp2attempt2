@@ -101,6 +101,10 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   all: {
     backgroundColor: '#000000'
+    display: 'flex',
+    flexDirection: 'column',
+    
+    
   },
   title: {
     color: 'white',
