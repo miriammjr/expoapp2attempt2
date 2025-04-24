@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Platform, ScrollView, FlatList, TextInput, Text, Button } from 'react-native';
-
+import { useState } from 'react';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -58,18 +58,32 @@ const liststuff = [
 
 ];
 
-const [searchStuff, setSearchStuff] = useState('');
-const [filteredStuff, setFilteredStuff] = useState(liststuff);
-
-const searchAnimals = function (input: string): void {
-  setSearchStuff(input);
-  const filtered = liststuff.filter((item) =>
-    item.name.toLowerCase().startsWith(input.toLowerCase()) ||  
-    item.animal === input.toLowerCase());
-  setFilteredStuff(filtered);
-}
 
 export default function HomeScreen() {
+  const [searchStuff, setSearchStuff] = useState('');
+  const [filteredStuff, setFilteredStuff] = useState(liststuff);
+
+  const searchAnimals = () => {
+    
+    const input = searchStuff;
+    if (input.length > 0) {
+      const filtered = liststuff.filter((item) =>
+        item.name.toLowerCase().startsWith(input.toLowerCase()) ||  
+        item.animal === input.toLowerCase());
+      setFilteredStuff(filtered);
+      
+    }
+    else {
+      setFilteredStuff(liststuff);
+    }
+
+    
+  }
+  const changeText = (input: string) => {
+    setSearchStuff(input);
+    
+  }
+
   return (
     
     <ScrollView style={styles.all}>
@@ -79,17 +93,18 @@ export default function HomeScreen() {
       <ThemedView style={styles.stepContainer}>
       <TextInput style={styles.input}
         value={searchStuff}
+        onChangeText={changeText}
       />
       <Button
         title="Submit"
-        onPress={({searchStuff} => searchAnimals({seachStuff})}
+        onPress={() => searchAnimals()}
       />
         <FlatList
-          data = {liststuff}
+          data = {filteredStuff}
           keyExtractor = {(item) => item.name}
           renderItem = {({item}) => (
             <ThemedView style={styles.stepContainer}>
-              <Text style={styles.item}>{item.name}</Text>
+              <Text style={styles.item}>{item.name} - {item.animal}</Text>
             </ThemedView>
           )}
         />
@@ -100,7 +115,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   all: {
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
@@ -109,6 +124,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     paddingTop: 30,
+    textAlign: 'center',
   },
   titleContainer: {
     flexDirection: 'row',
@@ -121,6 +137,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 20,
     paddingTop: 30,
+    textAlign: 'center',
   },
   reactLogo: {
     height: 178,
@@ -129,9 +146,11 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+
   item: {
     fontSize: 20,
     color:'#ffffff',
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#ffffff',
