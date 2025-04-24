@@ -58,6 +58,17 @@ const liststuff = [
 
 ];
 
+const [searchStuff, setSearchStuff] = useState('');
+const [filteredStuff, setFilteredStuff] = useState(liststuff);
+
+const searchAnimals = function (input: string): void {
+  setSearchStuff(input);
+  const filtered = liststuff.filter((item) =>
+    item.name.toLowerCase().startsWith(input.toLowerCase()) ||  
+    item.animal === input.toLowerCase());
+  setFilteredStuff(filtered);
+}
+
 export default function HomeScreen() {
   return (
     
